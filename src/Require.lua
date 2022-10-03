@@ -19,35 +19,32 @@ return function (a)
 			if cachedMod then
 				table.insert(rStuff, cachedMod)
 			else
-				local inScript = false
+				local foundIt = false
 
-				for _, module in ipairs(callingScript:GetChildren()) do
-					if module.Name == mName then
-						local rMod = require(module)
-						r[mName] = rMod
-						table.insert(rStuff, rMod)
+				for _, domainInstance in ipairs(d) do
+					for _, module in ipairs(domainInstance:GetChildren()) do
+						if module.Name == mName then
+							local rMod = require(module)
+							r[mName] = rMod
+							table.insert(rStuff, rMod)
 
-						inScript = true
-						break
+							foundIt = true
+							break
+						end
 					end
+
+					if foundIt then break end
 				end
 
-				if not inScript then
-					local foundIt = false
-
-					for _, domainInstance in ipairs(d) do
-						for _, module in ipairs(domainInstance:GetChildren()) do
-							if module.Name == mName then
-								local rMod = require(module)
-								r[mName] = rMod
-								table.insert(rStuff, rMod)
-
-								foundIt = true
-								break
-							end
+				if not foundIt then
+					for _, module in ipairs(callingScript:GetChildren()) do
+						if module.Name == mName then
+							local rMod = require(module)
+							r[mName] = rMod
+							table.insert(rStuff, rMod)
+	
+							break
 						end
-
-						if foundIt then break end
 					end
 				end
 			end

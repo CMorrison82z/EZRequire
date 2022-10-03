@@ -13,6 +13,11 @@ require{ReplicatedStorage.Modules, ServerScriptService.Modules}
 local moduleA, moduleB = require{"ModuleA", "ModuleB"}
 ```
 
+When writing independent modules, it's easy to integrate the possibility of users using this module via :
+```lua
+local require = _G.require or require
+```
+
 ## What is it doing ?
 
 After initializing require, require will do the following until a module with a matching name is found :
