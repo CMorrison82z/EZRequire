@@ -21,6 +21,6 @@ local require = _G.require or require
 ## What is it doing ?
 
 After initializing require, require will do the following until a module with a matching name is found :
-1. Check its cached modules
-2. Check children of the CALLING script (via getfenv(0).script)
-3. Check any registered domains set in initialization.
+1. Check its cached modules.
+2. Check any registered domains set in initialization.
+3. Check children of the CALLING script (via getfenv(0).script).
